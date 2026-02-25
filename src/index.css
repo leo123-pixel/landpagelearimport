@@ -1,0 +1,96 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 5.1%;
+    --foreground: 0 0% 100%;
+
+    --card: 0 0% 8.6%;
+    --card-foreground: 0 0% 100%;
+
+    --popover: 0 0% 8.6%;
+    --popover-foreground: 0 0% 100%;
+
+    --primary: 220 100% 55%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 0 0% 10.2%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 0 0% 14%;
+    --muted-foreground: 0 0% 60%;
+
+    --accent: 92 76% 48%;
+    --accent-foreground: 0 0% 5%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 16%;
+    --input: 0 0% 16%;
+    --ring: 220 100% 55%;
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 0 0% 5.1%;
+    --sidebar-foreground: 0 0% 100%;
+    --sidebar-primary: 220 100% 55%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 0 0% 10.2%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 0 0% 16%;
+    --sidebar-ring: 220 100% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Inter', sans-serif;
+  }
+}
+
+@layer utilities {
+  .glow-blue {
+    box-shadow: 0 0 80px 20px hsla(220, 100%, 55%, 0.15);
+  }
+
+  .glow-green {
+    box-shadow: 0 0 80px 20px hsla(92, 76%, 48%, 0.15);
+  }
+
+  .glow-mixed {
+    box-shadow: 0 0 120px 40px hsla(220, 100%, 55%, 0.1), 0 0 120px 40px hsla(92, 76%, 48%, 0.08);
+  }
+
+  .gradient-text {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, hsl(220, 100%, 55%), hsl(92, 76%, 48%));
+  }
+
+  .card-hover {
+    @apply transition-all duration-300;
+  }
+
+  .card-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 32px hsla(220, 100%, 55%, 0.15);
+  }
+
+  .border-gradient {
+    border-top: 2px solid;
+    border-image: linear-gradient(90deg, hsl(220, 100%, 55%), hsl(92, 76%, 48%)) 1;
+  }
+}
