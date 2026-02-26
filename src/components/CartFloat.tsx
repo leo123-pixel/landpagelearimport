@@ -1,10 +1,8 @@
-import { useState } from "react";
 import { ShoppingCart, X, Trash2, MessageCircle } from "lucide-react";
 import { useCart } from "./CartContext";
 
 const CartFloat = () => {
-    const { items, toggleItem, clearCart } = useCart();
-    const [open, setOpen] = useState(false);
+    const { items, toggleItem, clearCart, drawerOpen, setDrawerOpen } = useCart();
 
     const handleFinalize = () => {
         if (items.length === 0) return;
@@ -15,103 +13,86 @@ const CartFloat = () => {
         );
         window.open(`https://wa.me/595986110216?text=${message}`, "_blank");
         clearCart();
-        setOpen(false);
+        setDrawerOpen(false);
     };
 
+    if (!drawerOpen) return null;
+
     return (
-        <>
-            {/* Floating cart button */}
-            <button
-                onClick={() => setOpen(!open)}
-                aria-label="Carrinho de compras"
-                className="fixed bottom-6 left-6 z-50 w-14 h-14 rounded-full bg-primary text-primary-foreground flex items-center justify-center shadow-lg hover:scale-110 transition-transform"
-            >
-                <ShoppingCart size={26} />
-                {items.length > 0 && (
-                    <span className="absolute -top-1 -right-1 w-6 h-6 rounded-full bg-accent text-accent-foreground text-xs font-bold flex items-center justify-center">
-                        {items.length}
-                    </span>
-                )}
-            </button>
+        <div className="fixed inset-0 z-[60]">
+            {/* Backdrop */}
+            <div
+                className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+                onClick={() => setDrawerOpen(false)}
+            />
 
-            {/* Cart drawer overlay */}
-            {open && (
-                <div className="fixed inset-0 z-[60]">
-                    {/* Backdrop */}
-                    <div
-                        className="absolute inset-0 bg-black/60 backdrop-blur-sm"
-                        onClick={() => setOpen(false)}
-                    />
-
-                    {/* Drawer */}
-                    <div className="absolute right-0 top-0 h-full w-full max-w-md bg-background border-l border-border shadow-2xl flex flex-col animate-in slide-in-from-right duration-300">
-                        {/* Header */}
-                        <div className="flex items-center justify-between p-6 border-b border-border">
-                            <h2 className="text-lg font-bold flex items-center gap-2">
-                                <ShoppingCart size={20} />
-                                Carrinho ({items.length})
-                            </h2>
-                            <button
-                                onClick={() => setOpen(false)}
-                                aria-label="Fechar carrinho"
-                                className="p-1 rounded-lg hover:bg-muted transition"
-                            >
-                                <X size={20} />
-                            </button>
-                        </div>
-
-                        {/* Items */}
-                        <div className="flex-1 overflow-y-auto p-6">
-                            {items.length === 0 ? (
-                                <div className="text-center text-muted-foreground py-12">
-                                    <ShoppingCart size={48} className="mx-auto mb-4 opacity-30" />
-                                    <p className="font-medium">Seu carrinho está vazio</p>
-                                    <p className="text-sm mt-1">Selecione produtos para continuar</p>
-                                </div>
-                            ) : (
-                                <ul className="space-y-3">
-                                    {items.map((item) => (
-                                        <li
-                                            key={item.name}
-                                            className="flex items-center justify-between bg-card rounded-lg p-4 border border-border"
-                                        >
-                                            <span className="font-medium text-sm">{item.name}</span>
-                                            <button
-                                                onClick={() => toggleItem(item.name)}
-                                                aria-label={`Remover ${item.name}`}
-                                                className="p-1.5 rounded-lg text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition"
-                                            >
-                                                <Trash2 size={16} />
-                                            </button>
-                                        </li>
-                                    ))}
-                                </ul>
-                            )}
-                        </div>
-
-                        {/* Footer */}
-                        <div className="p-6 border-t border-border space-y-3">
-                            {items.length === 0 ? (
-                                <button
-                                    disabled
-                                    className="w-full px-6 py-3.5 rounded-lg bg-muted text-muted-foreground font-bold text-sm cursor-not-allowed"
-                                >
-                                    Selecione ao menos um produto
-                                </button>
-                            ) : (
-                                <button
-                                    onClick={handleFinalize}
-                                    className="w-full px-6 py-3.5 rounded-lg bg-accent text-accent-foreground font-bold text-sm hover:brightness-110 transition flex items-center justify-center gap-2"
-                                >
-                                    <MessageCircle size={18} />
-                                    Finalizar Pedido via WhatsApp
-                                </button>
-                            )}
-                        </div>
-                    </div>
+            {/* Drawer */}
+            <div className="absolute right-0 top-0 h-full w-full max-w-md bg-background border-l border-border shadow-2xl flex flex-col animate-in slide-in-from-right duration-300">
+                {/* Header */}
+                <div className="flex items-center justify-between p-6 border-b border-border">
+                    <h2 className="text-lg font-bold flex items-center gap-2">
+                        <ShoppingCart size={20} />
+                        Carrinho ({items.length})
+                    </h2>
+                    <button
+                        onClick={() => setDrawerOpen(false)}
+                        aria-label="Fechar carrinho"
+                        className="p-1 rounded-lg hover:bg-muted transition"
+                    >
+                        <X size={20} />
+                    </button>
                 </div>
-            )}
-        </>
+
+                {/* Items */}
+                <div className="flex-1 overflow-y-auto p-6">
+                    {items.length === 0 ? (
+                        <div className="text-center text-muted-foreground py-12">
+                            <ShoppingCart size={48} className="mx-auto mb-4 opacity-30" />
+                            <p className="font-medium">Seu carrinho está vazio</p>
+                            <p className="text-sm mt-1">Selecione produtos para continuar</p>
+                        </div>
+                    ) : (
+                        <ul className="space-y-3">
+                            {items.map((item) => (
+                                <li
+                                    key={item.name}
+                                    className="flex items-center justify-between bg-card rounded-lg p-4 border border-border"
+                                >
+                                    <span className="font-medium text-sm">{item.name}</span>
+                                    <button
+                                        onClick={() => toggleItem(item.name)}
+                                        aria-label={`Remover ${item.name}`}
+                                        className="p-1.5 rounded-lg text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition"
+                                    >
+                                        <Trash2 size={16} />
+                                    </button>
+                                </li>
+                            ))}
+                        </ul>
+                    )}
+                </div>
+
+                {/* Footer */}
+                <div className="p-6 border-t border-border space-y-3">
+                    {items.length === 0 ? (
+                        <button
+                            disabled
+                            className="w-full px-6 py-3.5 rounded-lg bg-muted text-muted-foreground font-bold text-sm cursor-not-allowed"
+                        >
+                            Selecione ao menos um produto
+                        </button>
+                    ) : (
+                        <button
+                            onClick={handleFinalize}
+                            className="w-full px-6 py-3.5 rounded-lg bg-accent text-accent-foreground font-bold text-sm hover:brightness-110 transition flex items-center justify-center gap-2"
+                        >
+                            <MessageCircle size={18} />
+                            Finalizar Pedido via WhatsApp
+                        </button>
+                    )}
+                </div>
+            </div>
+        </div>
     );
 };
 

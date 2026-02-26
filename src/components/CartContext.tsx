@@ -9,6 +9,8 @@ type CartContextType = {
     toggleItem: (name: string) => void;
     isInCart: (name: string) => boolean;
     clearCart: () => void;
+    drawerOpen: boolean;
+    setDrawerOpen: (open: boolean) => void;
 };
 
 const CartContext = createContext<CartContextType | null>(null);
@@ -21,6 +23,7 @@ export const useCart = () => {
 
 export const CartProvider = ({ children }: { children: ReactNode }) => {
     const [items, setItems] = useState<CartItem[]>([]);
+    const [drawerOpen, setDrawerOpen] = useState(false);
 
     const toggleItem = (name: string) => {
         setItems((prev) =>
@@ -35,7 +38,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     const clearCart = () => setItems([]);
 
     return (
-        <CartContext.Provider value={{ items, toggleItem, isInCart, clearCart }}>
+        <CartContext.Provider value={{ items, toggleItem, isInCart, clearCart, drawerOpen, setDrawerOpen }}>
             {children}
         </CartContext.Provider>
     );
