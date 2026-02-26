@@ -13,7 +13,7 @@ const Header = () => {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border">
-      <nav className="container flex items-center justify-between h-16">
+      <nav className="container flex items-center justify-between h-16" aria-label="Navegação principal">
         {/* Logo */}
         <a href="#" className="flex flex-col items-start leading-none">
           <span className="text-2xl font-black tracking-[0.15em]">LEAR</span>
@@ -38,7 +38,7 @@ const Header = () => {
         </ul>
 
         <a
-href="https://wa.me/595986110216"
+          href="https://wa.me/595986110216"
           target="_blank"
           rel="noopener noreferrer"
           className="hidden md:inline-flex items-center px-5 py-2.5 rounded-lg bg-accent text-accent-foreground font-bold text-sm hover:brightness-110 transition"

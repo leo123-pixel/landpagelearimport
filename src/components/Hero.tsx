@@ -1,6 +1,6 @@
 const Hero = () => {
   return (
-    <section className="relative min-h-screen flex items-center pt-16 overflow-hidden">
+    <section id="inicio" className="relative min-h-screen flex items-center pt-16 overflow-hidden">
       {/* Background glow */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-[128px] animate-pulse-glow" />
@@ -20,7 +20,7 @@ const Hero = () => {
           no Brasil
         </h1>
         <p className="text-lg sm:text-xl text-muted-foreground mb-10 max-w-2xl mx-auto">
-          Qualidade importada, entrega rápida e discreta em todo o Brasil. 
+          Qualidade importada, entrega rápida e discreta em todo o Brasil.
           Mais de 300 pedidos entregues com excelência.
         </p>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
