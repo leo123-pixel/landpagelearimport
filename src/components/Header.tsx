@@ -38,9 +38,7 @@ const Header = () => {
         </ul>
 
         <a
-          href="https://wa.me/595986110216"
-          target="_blank"
-          rel="noopener noreferrer"
+          href="#produtos"
           className="hidden md:inline-flex items-center px-5 py-2.5 rounded-lg bg-accent text-accent-foreground font-bold text-sm hover:brightness-110 transition"
         >
           Comprar Agora
@@ -70,9 +68,8 @@ const Header = () => {
             </a>
           ))}
           <a
-            href="https://wa.me/595986110216"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="#produtos"
+            onClick={() => setOpen(false)}
             className="block text-center px-5 py-2.5 rounded-lg bg-accent text-accent-foreground font-bold text-sm"
           >
             Comprar Agora
